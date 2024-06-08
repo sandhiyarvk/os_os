@@ -506,3 +506,52 @@ done
 
 ----------------------------------------------------------------------------------------
 
+//SYSTEM CALL
+#include <stdio.h> 
+#include <sys/stat.h> 
+#include <stdlib.h> 
+int main() 
+{ 
+struct stat s; 
+int a; int b; 
+if(stat("suba",&s)==(-1)) 
+{ 
+perror("Error: cannot stat file"); 
+exit(0); 
+} 
+a=s.st_blksize; 
+b=s.st_size; 
+printf("ALLOCATED SIZE OF THE FILE :%d\nActual size of the file :%d\n",a,b); 
+return 0; 
+}
+
+
+
+
+
+PROCESS SYSTEM CALLS
+#include<stdio.h> 
+#include<unistd.h> 
+#include<stdlib.h> 
+void main() 
+{ 
+int pid; 
+pid=fork(); 
+if (pid < 0) 
+{ 
+printf("The fork cannot be created"); 
+exit(0); 
+} 
+else 
+if (pid==0) 
+{ 
+execlp("/home/ls","ls",NULL); 
+printf("\n The process id of the child: %d", getpid()); 
+printf("\n The process id of the parent: %d", getppid()); 
+} 
+else{ 
+printf("\n The process id of the parent: %d", getpid()); 
+ 
+printf("\n The process id of the grandparent: %d", getppid()); 
+}
+}
